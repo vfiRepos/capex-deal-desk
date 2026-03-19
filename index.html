@@ -293,6 +293,7 @@ button:disabled{opacity:0.55;cursor:not-allowed;}
 <script>
 document.getElementById('dealForm').addEventListener('submit', async function(e) {
   e.preventDefault();
+
   const btn = document.getElementById('submitBtn');
   btn.disabled = true;
   btn.textContent = 'Submitting...';
@@ -302,35 +303,31 @@ document.getElementById('dealForm').addEventListener('submit', async function(e)
   const revenue  = parseFloat(document.getElementById('revenue').value);
   const hq       = document.getElementById('hq').value;
 
+  // Qualification: deal >= $3M, 3+ years, revenue >= $25M, HQ in USA
   const isQualified = (dealSize >= 3 && years >= 3 && revenue >= 25 && hq === 'usa');
 
   if (isQualified) {
-    const calendlyLinks = [
-      "https://calendly.com/your-link-1", 
-      "https://calendly.com/your-link-2"
+    // --- ROUND ROBIN SETUP ---
+    const links = [
+      "https://calendly.com/srobinson-vfi/vfi-capex-discussion", // Sam
+      "https://calendly.com/jschmeltzer-vfi/intro"  // John
     ];
-    const selectedLink = calendlyLinks[Math.floor(Math.random() * calendlyLinks.length)];
-    document.getElementById('roundRobinBtn').href = selectedLink;
+    const selectedLink = links[Math.floor(Math.random() * links.length)];
+    
+    // This updates the button in the "Qualified" div
+    document.getElementById('calendlyAnchor').href = selectedLink;
 
     try {
-      const response = await fetch(this.action, {
+      await fetch(this.action, {
         method: 'POST',
         body: new FormData(this),
         headers: { 'Accept': 'application/json' }
       });
-
-      if (response.ok) {
-        this.style.display = 'none';
-        document.getElementById('qualified').style.display = 'block';
-      } else {
-        const data = await response.json();
-        throw new Error(data.error || "Submission failed. Check Formspree settings.");
-      }
     } catch(err) {
-      btn.disabled = false;
-      btn.textContent = 'Submit Deal';
-      alert("Error: " + err.message); // This will tell you exactly what's wrong!
+      console.error('Formspree error:', err);
     }
+    this.style.display = 'none';
+    document.getElementById('qualified').style.display = 'block';
   } else {
     this.style.display = 'none';
     document.getElementById('notQualified').style.display = 'block';
