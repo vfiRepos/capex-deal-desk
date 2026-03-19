@@ -1,51 +1,187 @@
+@@ -1,343 +1,343 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta ="viewport" content="width=device-width, initial-scale=1.0">
 <title>CapEx Deal Desk</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'DM Sans',sans-serif;background:#f4f6f9;color:#1c2640;padding:40px 20px;}
-  .page{max-width:650px;margin:auto;}
-  .header{text-align:center;margin-bottom:30px;}
-  .header h1{font-size:28px;font-weight:600;margin-bottom:6px;}
-  .header p{color:#6a7698;font-size:14px;}
-  .card{background:#fff;border-radius:12px;border:1px solid #e0e6f3;padding:36px;box-shadow:0 4px 20px rgba(0,0,0,0.05);}
-  .section-title{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#2255cc;margin-bottom:20px;}
-  .field{margin-bottom:18px;}
-  label{font-size:14px;font-weight:500;display:block;margin-bottom:6px;}
-  input,select{width:100%;padding:11px 12px;border-radius:7px;border:1.5px solid #d6dcef;font-size:14px;font-family:'DM Sans',sans-serif;background:#fff;color:#1c2640;-webkit-appearance:none;}
-  input:focus,select:focus{outline:none;border-color:#2255cc;}
-  select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='%232255cc' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:34px;cursor:pointer;}
-  button{width:100%;padding:14px;background:#2255cc;color:white;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background 0.15s;}
-  button:hover{background:#1a44aa;}
-  button:disabled{opacity:0.55;cursor:not-allowed;}
-  .result{display:none;text-align:center;padding:40px 10px;}
-  .result-icon{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;}
-  .result-icon.green{background:#eef7ee;}
-  .result-icon.grey{background:#f0f2f8;}
-  .result-icon svg{width:24px;height:24px;fill:none;stroke-width:2.5;stroke-linecap:round;}
-  .result h2{font-size:20px;font-weight:600;margin-bottom:10px;}
-  .result p{font-size:14px;color:#6a7698;line-height:1.7;}
-  .cal-btn{display:inline-block;margin-top:22px;background:#2255cc;color:white;padding:13px 26px;border-radius:7px;text-decoration:none;font-weight:600;font-size:14px;transition:background 0.15s;}
-  .cal-btn:hover{background:#1a44aa;}
-  .params{margin-top:18px;background:#f7f9fc;border:1px solid #e0e6f3;border-radius:8px;padding:16px 20px;font-size:13px;color:#4a5570;line-height:1.9;text-align:left;display:inline-block;}
-  .params strong{color:#1c2640;}
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  font-family:'DM Sans',sans-serif;
+  background:#f4f6f9;
+  color:#1c2640;
+  padding:40px 20px;
+}
+
+.page{
+  max-width:650px;
+  margin:auto;
+}
+
+.header{
+  text-align:center;
+  margin-bottom:30px;
+}
+
+.header h1{
+  font-size:28px;
+  font-weight:600;
+  margin-bottom:6px;
+}
+
+.header p{
+  color:#6a7698;
+  font-size:14px;
+}
+
+.card{
+  background:#fff;
+  border-radius:12px;
+  border:1px solid #e0e6f3;
+  padding:36px;
+  box-shadow:0 4px 20px rgba(0,0,0,0.05);
+}
+
+.section-title{
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:#2255cc;
+  margin-bottom:20px;
+}
+
+.field{
+  margin-bottom:18px;
+}
+
+label{
+  font-size:14px;
+  font-weight:500;
+  display:block;
+  margin-bottom:6px;
+}
+
+input,select{
+  width:100%;
+  padding:11px 12px;
+  border-radius:7px;
+  border:1.5px solid #d6dcef;
+  font-size:14px;
+  font-family:'DM Sans',sans-serif;
+  background:#fff;
+  color:#1c2640;
+  -webkit-appearance:none;
+}
+
+input:focus,select:focus{
+  outline:none;
+  border-color:#2255cc;
+}
+
+select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='%232255cc' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 12px center;
+  padding-right:34px;
+  cursor:pointer;
+}
+
+button{
+  width:100%;
+  padding:14px;
+  background:#2255cc;
+  color:white;
+  border:none;
+  border-radius:8px;
+  font-size:15px;
+  font-weight:600;
+  cursor:pointer;
+  font-family:'DM Sans',sans-serif;
+  transition:background 0.15s;
+}
+
+button:hover{background:#1a44aa;}
+button:disabled{opacity:0.55;cursor:not-allowed;}
+
+.result{
+  display:none;
+  text-align:center;
+  padding:40px 10px;
+}
+
+.result-icon{
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto 18px;
+}
+
+.result-icon.green{background:#eef7ee;}
+.result-icon.grey{background:#f0f2f8;}
+
+.result-icon svg{width:24px;height:24px;fill:none;stroke-width:2.5;stroke-linecap:round;}
+
+.result h2{font-size:20px;font-weight:600;margin-bottom:10px;}
+.result p{font-size:14px;color:#6a7698;line-height:1.7;}
+
+.cal-btn{
+  display:inline-block;
+  margin-top:22px;
+  background:#2255cc;
+  color:white;
+  padding:13px 26px;
+  border-radius:7px;
+  text-decoration:none;
+  font-weight:600;
+  font-size:14px;
+  transition:background 0.15s;
+}
+
+.cal-btn:hover{background:#1a44aa;}
+
+.params{
+  margin-top:18px;
+  background:#f7f9fc;
+  border:1px solid #e0e6f3;
+  border-radius:8px;
+  padding:16px 20px;
+  font-size:13px;
+  color:#4a5570;
+  line-height:1.9;
+  text-align:left;
+  display:inline-block;
+}
+
+.params strong{color:#1c2640;}
 </style>
 </head>
 
 <body>
 <div class="page">
+
   <div class="header">
     <h1>CapEx Deal Desk</h1>
     <p>Equipment &amp; Infrastructure Financing<br>$3M – $75M+</p>
   </div>
 
   <div class="card">
+
     <form id="dealForm" action="https://formspree.io/f/xdawbdpv" method="POST">
+      <!--
+        SETUP: Replace YOUR_FORM_ID with your Formspree form ID.
+        Go to formspree.io → New Form → set email to spaulos@vfi.net → copy ID.
+        Also replace YOUR_CALENDLY_LINK below with your actual Calendly URL.
+      -->
       <input type="hidden" name="_subject" value="New CapEx Deal Desk Submission — Qualified" />
+
       <div class="section-title">Deal Information</div>
 
       <div class="field">
@@ -55,6 +191,7 @@
 
       <div class="field">
         <label>Contact Email</label>
+        <input type="email" name="_replyto" placeholder="jane@company.com" required>
         <input type="email" name="email" placeholder="jane@company.com" required>
       </div>
 
@@ -70,6 +207,7 @@
       <div class="field">
         <label>Industry</label>
         <select name="Industry" required>
+        <select ="Industry" required>
           <option value="">Select</option>
           <option>Manufacturing</option>
           <option>Energy / Infrastructure</option>
@@ -84,12 +222,14 @@
 
       <div class="field">
         <label>Equipment / Project Type</label>
-        <input type="text" name="Equipment / Project Type" placeholder="e.g. CNC Machines" required>
+        <input type="text" name="Equipment / Project Type" placeholder="e.g. CNC Machines, Fleet Vehicles, Solar Array" required>
+        <input type="text" ="Equipment / Project Type" placeholder="e.g. CNC Machines, Fleet Vehicles, Solar Array" required>
       </div>
 
       <div class="field">
         <label>Total Project Size</label>
         <select id="dealSize" name="Total Project Size" required>
+        <select id="dealSize" ="Total Project Size" required>
           <option value="">Select</option>
           <option value="0.5">Under $3M</option>
           <option value="3">$3M – $10M</option>
@@ -102,6 +242,7 @@
       <div class="field">
         <label>Time in Business</label>
         <select id="years" name="Time in Business" required>
+        <select id="years" ="Time in Business" required>
           <option value="">Select</option>
           <option value="0">Startup / Under 1 Year</option>
           <option value="1">1 – 2 Years</option>
@@ -113,6 +254,7 @@
       <div class="field">
         <label>Annual Revenue</label>
         <select id="revenue" name="Annual Revenue" required>
+        <select id="revenue" ="Annual Revenue" required>
           <option value="">Select</option>
           <option value="1">Under $10M</option>
           <option value="10">$10M – $25M</option>
@@ -124,8 +266,10 @@
       </div>
 
       <button type="submit" id="submitBtn">Submit Deal</button>
+
     </form>
 
+    <!-- Qualified -->
     <div id="qualified" class="result">
       <div class="result-icon green">
         <svg viewBox="0 0 24 24" stroke="#2e9e4f"><polyline points="20 6 9 17 4 12"/></svg>
@@ -135,6 +279,7 @@
       <a id="roundRobinBtn" class="cal-btn" href="#" target="_blank">Schedule Financing Call →</a>
     </div>
 
+    <!-- Not Qualified -->
     <div id="notQualified" class="result">
       <div class="result-icon grey">
         <svg viewBox="0 0 24 24" stroke="#8fa0bf"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
@@ -149,6 +294,7 @@
         Company HQ &nbsp;&nbsp;&nbsp;United States
       </div>
     </div>
+
   </div>
 </div>
 
@@ -167,26 +313,32 @@ document.getElementById('dealForm').addEventListener('submit', async function(e)
   const isQualified = (dealSize >= 3 && years >= 3 && revenue >= 25 && hq === 'usa');
 
   if (isQualified) {
-    const links = [
-      "https://calendly.com/srobinson-vfi/vfi-capex-discussion",
+    const calendlyLinks = [
+      "https://calendly.com/srobinson-vfi/vfi-capex-discussion", 
       "https://calendly.com/jschmeltzer-vfi/intro"
     ];
-    const selectedLink = links[Math.floor(Math.random() * links.length)];
-    
-    // Updated to match the HTML button ID
+    const selectedLink = calendlyLinks[Math.floor(Math.random() * calendlyLinks.length)];
     document.getElementById('roundRobinBtn').href = selectedLink;
 
     try {
-      await fetch(this.action, {
+      const response = await fetch(this.action, {
         method: 'POST',
         body: new FormData(this),
         headers: { 'Accept': 'application/json' }
       });
+
+      if (response.ok) {
+        this.style.display = 'none';
+        document.getElementById('qualified').style.display = 'block';
+      } else {
+        const data = await response.json();
+        throw new Error(data.error || "Submission failed. Check Formspree settings.");
+      }
     } catch(err) {
-      console.error('Formspree error:', err);
+      btn.disabled = false;
+      btn.textContent = 'Submit Deal';
+      alert("Error: " + err.message); // This will tell you exactly what's wrong!
     }
-    this.style.display = 'none';
-    document.getElementById('qualified').style.display = 'block';
   } else {
     this.style.display = 'none';
     document.getElementById('notQualified').style.display = 'block';
@@ -195,3 +347,5 @@ document.getElementById('dealForm').addEventListener('submit', async function(e)
 </script>
 </body>
 </html>
+
+--
